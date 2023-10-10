@@ -17,7 +17,8 @@ jobs:
       - name: Prepare environment
         run: |
           mkdir /mnt/sys-root &&
-          wget -O target-pacman.conf https://gitlab.archlinux.org/archlinux/archiso/-/raw/master/configs/releng/pacman.conf
+          wget -O target-pacman.conf https://gitlab.archlinux.org/archlinux/archiso/-/raw/master/configs/releng/pacman.conf &&
+          echo "IMAGE_VERSION=$(date +%Y%m%d-%H%M)" >> $GITHUB_ENV
       - name: pacstrap
         run: pacstrap -C target-pacman.conf -K /mnt/sys-root base curl wget vim sudo nano mesa mesa-utils
       - name: Simple initialization
@@ -26,6 +27,7 @@ jobs:
           sed -i -e 's/#Server/Server/g' /mnt/sys-root/etc/pacman.d/mirrorlist &&
           sed -i -e 's/#Color/Color/g' -e 's/#ParallelDownloads/ParallelDownloads/g' /mnt/sys-root/etc/pacman.conf &&
           sed -i -e 's/#en_US.UTF-8/en_US.UTF-8/g' /mnt/sys-root/etc/locale.gen &&
+          echo "%wheel ALL=(ALL:ALL) ALL" > /mnt/sys-root/etc/sudoers.d/wheel &&
           rm /mnt/sys-root/etc/machine-id && 
           touch /mnt/sys-root/etc/machine-id &&
           cp wsl.conf /mnt/sys-root/etc/wsl.conf &&
@@ -35,7 +37,9 @@ jobs:
       - name: Upload the release
         uses: softprops/action-gh-release@v1
         with:
+          tag_name: "${{ env.IMAGE_VERSION }}"
           files: |
             rootfs.tar.gz
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        
