@@ -6,11 +6,25 @@ jobs:
   build-rootfs:
     runs-on: ubuntu-latest
     name: "Build rootfs"
-    container: archlinux
+    container: 
+      image: archlinux
+      options: --privileged
     steps:
       - name: Install packages
         run: pacman -Syu --noconfirm && pacman -S --noconfirm arch-install-scripts wget
       - name: Prepare environment
-        run:  mkdir /mnt/sys-root && wget -O target-pacman.conf https://gitlab.archlinux.org/archlinux/archiso/-/raw/master/configs/releng/pacman.conf
-      - name: Test pacstrap
+        run: |
+          mkdir /mnt/sys-root &&
+          wget -O target-pacman.conf https://gitlab.archlinux.org/archlinux/archiso/-/raw/master/configs/releng/pacman.conf
+      - name: pacstrap
         run: pacstrap -C target-pacman.conf -K /mnt/sys-root base curl wget vim sudo nano mesa mesa-utils
+      - name: Simple initialization
+        run: |
+          curl -o /mnt/sys-root/etc/pacman.d/mirrorlist https://archlinux.org/mirrorlist/?country=all &&
+          sed -i -e 's/#Server/Server/g' /mnt/sys-root/pacman.d/mirrorlist &&
+          sed -i -e 's/#Color/Color/g' -e 's/#ParallelDownloads/ParallelDownloads/g' /mnt/sys-root/etc/pacman.conf &&
+          sed -i -e 's/#en_US.UTF-8/en_US.UTF-8/g' /mnt/sys-root/etc/locale.gen &&
+          rm /mnt/sys-root/etc/machine-id && touch /mnt/sys-root/etc/machine-id &&
+          arch-chroot /mnt/sys-root sh -c "locale-gen && pacman -Scc <<< $'y\ny\n' "
+      - name: Package
+        run: tar -czf rootfs.tar.gz -C /mnt/sys-root ./
