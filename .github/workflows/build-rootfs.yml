@@ -18,7 +18,8 @@ jobs:
         run: pacman -Syu --noconfirm && pacman -S --noconfirm arch-install-scripts wget curl base-devel
       - name: Prepare environment
         run: |
-          mkdir /mnt/sys-root &&
+          mkdir /mnt/sys-root-skeleton /mnt/sys-root &&
+          mount --bind /mnt/sys-root-skeleton /mnt/sys-root &&
           wget -O target-pacman.conf https://gitlab.archlinux.org/archlinux/archiso/-/raw/master/configs/releng/pacman.conf &&
           echo "IMAGE_VERSION=$(date +%Y%m%d-%H%M)" >> $GITHUB_ENV
       - name: Initializing rootfs
