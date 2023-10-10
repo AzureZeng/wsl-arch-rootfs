@@ -21,10 +21,19 @@ jobs:
       - name: Simple initialization
         run: |
           curl -o /mnt/sys-root/etc/pacman.d/mirrorlist https://archlinux.org/mirrorlist/?country=all &&
-          sed -i -e 's/#Server/Server/g' /mnt/sys-root/pacman.d/mirrorlist &&
+          sed -i -e 's/#Server/Server/g' /mnt/sys-root/etc/pacman.d/mirrorlist &&
           sed -i -e 's/#Color/Color/g' -e 's/#ParallelDownloads/ParallelDownloads/g' /mnt/sys-root/etc/pacman.conf &&
           sed -i -e 's/#en_US.UTF-8/en_US.UTF-8/g' /mnt/sys-root/etc/locale.gen &&
-          rm /mnt/sys-root/etc/machine-id && touch /mnt/sys-root/etc/machine-id &&
+          rm /mnt/sys-root/etc/machine-id && 
+          touch /mnt/sys-root/etc/machine-id &&
+          cp wsl.conf /mnt/sys-root/etc/wsl.conf &&
           arch-chroot /mnt/sys-root sh -c "locale-gen && pacman -Scc <<< $'y\ny\n' "
       - name: Package
         run: tar -czf rootfs.tar.gz -C /mnt/sys-root ./
+      - name: Upload the release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            rootfs.tar.gz
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
