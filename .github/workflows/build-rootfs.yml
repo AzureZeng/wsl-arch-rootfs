@@ -1,6 +1,8 @@
-name: Test Build
+name: Build rootfs
 on:
-  - push
+  workflow_dispatch:
+  schedule:
+    - cron: '24 7 * * *'
 
 jobs:
   build-rootfs:
@@ -20,13 +22,13 @@ jobs:
           wget -O target-pacman.conf https://gitlab.archlinux.org/archlinux/archiso/-/raw/master/configs/releng/pacman.conf &&
           echo "IMAGE_VERSION=$(date +%Y%m%d-%H%M)" >> $GITHUB_ENV
       - name: pacstrap
-        run: pacstrap -C target-pacman.conf -K /mnt/sys-root base curl wget vim sudo nano mesa mesa-utils
+        run: pacstrap -C target-pacman.conf -K /mnt/sys-root base curl wget vim nano sudo
       - name: Simple initialization
         run: |
           curl -o /mnt/sys-root/etc/pacman.d/mirrorlist https://archlinux.org/mirrorlist/?country=all &&
-          sed -i -e 's/#Server/Server/g' /mnt/sys-root/etc/pacman.d/mirrorlist &&
-          sed -i -e 's/#Color/Color/g' -e 's/#ParallelDownloads/ParallelDownloads/g' /mnt/sys-root/etc/pacman.conf &&
-          sed -i -e 's/#en_US.UTF-8/en_US.UTF-8/g' /mnt/sys-root/etc/locale.gen &&
+          sed -i -e 's/^#Server/Server/g' /mnt/sys-root/etc/pacman.d/mirrorlist &&
+          sed -i -e 's/^#Color/Color/g' -e 's/^#ParallelDownloads/ParallelDownloads/g' /mnt/sys-root/etc/pacman.conf &&
+          sed -i -e 's/^#en_US.UTF-8/en_US.UTF-8/g' /mnt/sys-root/etc/locale.gen &&
           echo "%wheel ALL=(ALL:ALL) ALL" > /mnt/sys-root/etc/sudoers.d/wheel &&
           rm /mnt/sys-root/etc/machine-id && 
           touch /mnt/sys-root/etc/machine-id &&
