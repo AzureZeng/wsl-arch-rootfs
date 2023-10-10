@@ -1,0 +1,14 @@
+name: Test Build
+on:
+  - push
+
+jobs:
+  build-rootfs:
+    runs-on: ubuntu-latest
+    name: "Build rootfs"
+    container: archlinux
+    steps:
+      - name: Install packages
+        run: pacman -Syu --noconfirm && pacman -S --noconfirm arch-install-scripts wget && wget -O target-pacman.conf https://gitlab.archlinux.org/archlinux/archiso/-/raw/master/configs/releng/pacman.conf
+      - name: Test pacstrap
+        run: pacstrap -C target-pacman.conf -K /mnt/sys-root base curl wget vim sudo nano mesa mesa-utils
