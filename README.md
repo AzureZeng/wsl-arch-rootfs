@@ -42,15 +42,13 @@ Summary:
 
 * Pre-installed packages: `base` `curl` `wget` `vim` `nano` `sudo` `texinfo` `man-db` `man-pages`
 
-* `/etc/pacman.d/mirrorlist`: updated from `https://archlinux.org/mirrorlist/all/`, and all mirrorlist sites are enabled by default.
+* `/etc/pacman.d/mirrorlist`: Updated from `https://archlinux.org/mirrorlist/all/`, and all mirrorlist sites are enabled by default.
 
-* `/etc/pacman.conf`: enabled `Color` and `ParallelDownloads` options by default
+* `/etc/pacman.conf`: Enabled `Color` and `ParallelDownloads` options by default.
 
-* `/etc/locale.gen`: enabled `en_US.UTF-8 UTF-8` by default. Then used `locale-gen` to generate localization files.
+* `/etc/locale.gen`: Enabled `en_US.UTF-8 UTF-8` by default. Then used `locale-gen` to generate localization files.
 
 * `/etc/sudoers.d/wheel`: Enabled `%wheel ALL=(ALL:ALL) ALL`, which users in `wheel` group will be able to use `sudo` by default.
-
-* `/etc/wsl.conf`: Enabled `systemd` support by default.
 
 ## Some hints
 
@@ -62,8 +60,15 @@ Summary:
 sudo ln -sf libedit.so /usr/lib/libedit.so.2
 ```
 
-3. To download all packages (but no re-installation):
+3. To download all packages (but no package re-installing):
 
 ```bash
 pacman -Qq | sudo pacman -Sw -
+```
+
+4. To enable `systemd` support, create `/etc/wsl.conf` with below content:
+
+```ini
+[boot]
+systemd=true
 ```
