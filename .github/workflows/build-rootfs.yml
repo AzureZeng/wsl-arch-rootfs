@@ -38,7 +38,7 @@ jobs:
           touch /mnt/sys-root/etc/machine-id &&
           rm -rf /mnt/sys-root/var/cache/pacman/pkg/*
       - name: Package final rootfs
-        run: tar -czf rootfs.tar.gz -C /mnt/sys-root ./ &&
+        run: tar -czf rootfs.tar.gz -C /mnt/sys-root ./
       - name: Package with wsldl
         run: |
           mkdir wsl-arch-rootfs &&
