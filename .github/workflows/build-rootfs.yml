@@ -46,6 +46,9 @@ jobs:
           unzip -o wsldl_icons.zip Arch.exe -d wsl-arch-rootfs/ &&
           cp rootfs.tar.gz wsl-arch-rootfs/rootfs.tar.gz &&
           zip rootfs-with-wsldl.zip -r wsl-arch-rootfs/
+      - name: Generate sha256sums
+        run: |
+          sha256sum rootfs.tar.gz rootfs-with-wsldl.zip > sha256sums
       - name: Upload the final artifact
         uses: softprops/action-gh-release@v1
         with:
@@ -53,6 +56,7 @@ jobs:
           files: |
             rootfs.tar.gz
             rootfs-with-wsldl.zip
+            sha256sums
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         

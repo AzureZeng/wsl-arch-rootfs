@@ -26,6 +26,8 @@ wsl --import Arch C:\Users\azurezeng\WSL\Arch rootfs.tar.gz
 
 You can use the RootFS with yuk7's [wsldl](https://github.com/yuk7/wsldl) together to get more convenient installation. For wsldl's manual, visit [here](https://github.com/yuk7/wsldl/blob/main/README.md).
 
+UPDATE: `rootfs-with-wsldl.zip` contains both `rootfs.tar.gz` and `wsldl.exe` (renamed to `Arch.exe`). I would like to express sincere thanks to yuk7!
+
 🛈 **HINT**: 
 
 1. Rename the file name of wsldl to customize your distro's name.
