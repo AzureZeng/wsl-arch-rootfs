@@ -52,7 +52,7 @@ Summary:
 
 * `/etc/locale.gen`: Enabled `en_US.UTF-8 UTF-8` by default. Then used `locale-gen` to generate localization files.
 
-* `/etc/sudoers.d/wheel`: Enabled `%wheel ALL=(ALL:ALL) ALL`, which users in `wheel` group will be able to use `sudo` by default.
+* `/etc/sudoers.d/wheel`: Enabled `%wheel ALL=(ALL:ALL) ALL`, which means users in `wheel` group will be able to use `sudo` by default.
 
 ## Some hints
 
