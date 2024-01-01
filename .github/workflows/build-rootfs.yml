@@ -16,6 +16,9 @@ jobs:
         uses: actions/checkout@v4
       - name: Install packages
         run: | 
+          pacman-key --init &&
+          pacman-key --populate &&
+          pacman -Sy --noconfirm archlinux-keyring &&
           pacman -Syu --noconfirm &&
           pacman -S --noconfirm arch-install-scripts wget curl base-devel zip unzip
       - name: Prepare environment
