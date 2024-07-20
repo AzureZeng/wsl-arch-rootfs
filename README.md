@@ -8,11 +8,13 @@ This repo will build RootFS automatically at 07:24 AM UTC on every 1st day of th
 
 Please read this readme carefully before using this RootFS.
 
-1. Arch Linux on WSL installation is **UNSUPPORTED BY OFFICIAL** according to the [official code of conduct](https://terms.archlinux.org/docs/code-of-conduct/#arch-linux-distribution-support-only). Before reporting problems to Arch Linux official, please ensure that the problems are **REPRODUCIBLE** in **SUPPORTED** Arch Linux installations.
+1. **Please read this README thoroughly before using any RootFS provided by this repository.**
 
-2. As mentioned above, you should be familiar with Arch Linux in **SUPPORTED** installations.
+2. Arch Linux on WSL installation is **UNSUPPORTED BY OFFICIAL** according to the [official code of conduct](https://terms.archlinux.org/docs/code-of-conduct/#arch-linux-distribution-support-only). Before reporting problems to Arch Linux official, please ensure that the problems are **REPRODUCIBLE** in **SUPPORTED** Arch Linux installations.
 
-3. The RootFS file provided in this repository is only intended to be installed in WSL2. WSL1 is not supported as Microsoft strongly advises using WSL2 now. If you are seeking Arch Linux on WSL1, [ArchWSL](https://github.com/yuk7/ArchWSL) provided by [yuk7](https://github.com/yuk7/) might help.
+3. As mentioned above, you should be familiar with Arch Linux in **SUPPORTED** installations.
+
+4. The RootFS file provided in this repository is only intended to be installed in WSL2. WSL1 is not supported as Microsoft strongly advises using WSL2 now. If you are seeking Arch Linux on WSL1, [ArchWSL](https://github.com/yuk7/ArchWSL) provided by [yuk7](https://github.com/yuk7/) might help.
 
 ## Installation
 
@@ -26,9 +28,11 @@ For example:
 wsl --import Arch C:\Users\azurezeng\WSL\Arch rootfs.tar.gz
 ```
 
-You can use the RootFS with yuk7's [wsldl](https://github.com/yuk7/wsldl) together to get more convenient installation. You can look up wsldl's manual at [here](https://github.com/yuk7/wsldl/blob/main/README.md).
+You can use the RootFS with yuk7's [wsldl](https://github.com/yuk7/wsldl) together to get more convenient installation. The manual of [wsldl](https://github.com/yuk7/wsldl) can be found at [here](https://github.com/yuk7/wsldl/blob/main/README.md).
 
-**HINT**: 
+After importing, remember to do `pacman-key --init` and `pacman-key --populate` **immediately**, otherwise `pacman` may not work.
+
+### Hints
 
 1. Rename the file name of wsldl to customize your distro's name.
 
@@ -54,7 +58,11 @@ Summary:
 
 * `/etc/sudoers.d/wheel`: Enabled `%wheel ALL=(ALL:ALL) ALL`, which means users in `wheel` group will be able to use `sudo` by default.
 
-## Some hints
+* Removed auto-generated `/etc/pacman.d/gnupg` for security reason (since 7/20/2024).
+
+* `/tmp` is mounted as `tmpfs` by adding this mount option to `/etc/fstab`. This behavior is same as default Arch Linux installation.
+
+## Some tips
 
 1. After importing/installing the RootFS, it is advised to do `pacman -Syu` as early as possible, to ensure everything the latest.
 
