@@ -37,8 +37,9 @@ jobs:
           echo "%wheel ALL=(ALL:ALL) ALL" > /mnt/sys-root/etc/sudoers.d/wheel &&
           echo "tmpfs /tmp tmpfs mode=1777,strictatime,nosuid,nodev,size=50%,nr_inodes=1m 0 0" >> /mnt/sys-root/etc/fstab &&
           arch-chroot /mnt/sys-root locale-gen &&
-          rm /mnt/sys-root/etc/machine-id &&
           rm -rf /mnt/sys-root/etc/pacman.d/gnupg &&
+          rm -rf /mnt/sys-root/var/lib/pacman/sync/ &&
+          rm /mnt/sys-root/etc/machine-id &&
           touch /mnt/sys-root/etc/machine-id &&
           rm -rf /mnt/sys-root/var/cache/pacman/pkg/*
       - name: Package final rootfs
