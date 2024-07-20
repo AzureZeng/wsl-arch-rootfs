@@ -32,6 +32,8 @@ You can use the RootFS with yuk7's [wsldl](https://github.com/yuk7/wsldl) togeth
 
 After importing, remember to do `pacman-key --init` and `pacman-key --populate` **immediately**, otherwise `pacman` may not work.
 
+Then, remember to do `pacman -Syu` to update all packages to the latest as soon as possible.
+
 ### Hints
 
 1. Rename the file name of wsldl to customize your distro's name.
