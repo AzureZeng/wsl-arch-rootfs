@@ -8,7 +8,7 @@ This repo will build RootFS automatically at 07:24 AM UTC on every 1st day of th
 
 Please read this readme carefully before using this RootFS.
 
-1. **Please read this README thoroughly before using any RootFS provided by this repository.**
+1. **Please read this README thoroughly before using any RootFS archives provided by this repository.**
 
 2. Arch Linux on WSL installation is **UNSUPPORTED BY OFFICIAL** according to the [official code of conduct](https://terms.archlinux.org/docs/code-of-conduct/#arch-linux-distribution-support-only). Before reporting problems to Arch Linux official, please ensure that the problems are **REPRODUCIBLE** in **SUPPORTED** Arch Linux installations.
 
