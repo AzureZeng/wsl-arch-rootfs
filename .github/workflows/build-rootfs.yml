@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     name: "Build rootfs"
     container: 
-      image: archlinux
+      image: archlinux/archlinux
       options: --privileged
     steps:
       - name: Checkout
