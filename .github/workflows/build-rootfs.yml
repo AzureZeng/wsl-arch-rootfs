@@ -36,6 +36,7 @@ jobs:
           sed -i -e 's/^#Color/Color/g' -e 's/^#ParallelDownloads/ParallelDownloads/g' /mnt/sys-root/etc/pacman.conf &&
           sed -i -e 's/^#en_US.UTF-8/en_US.UTF-8/g' /mnt/sys-root/etc/locale.gen &&
           echo "%wheel ALL=(ALL:ALL) ALL" > /mnt/sys-root/etc/sudoers.d/wheel &&
+          echo "\ntmpfs /tmp tmpfs mode=1777,strictatime,nosuid,nodev,size=50%,nr_inodes=1m 0 0\n" >> /mnt/sys-root/etc/fstab &&
           arch-chroot /mnt/sys-root locale-gen &&
           rm /mnt/sys-root/etc/machine-id &&
           touch /mnt/sys-root/etc/machine-id &&
