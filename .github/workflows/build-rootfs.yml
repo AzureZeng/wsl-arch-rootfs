@@ -49,7 +49,8 @@ jobs:
           cp wsl.conf /mnt/sys-root/etc/wsl.conf &&
           cp wsl-distribution.conf /mnt/sys-root/etc/wsl-distribution.conf &&
           cp arch.ico /mnt/sys-root/usr/local/etc/wsl/icon.ico &&
-          cp wsl-oobe.sh /mnt/sys-root/usr/local/etc/wsl/oobe.sh
+          cp wsl-oobe.sh /mnt/sys-root/usr/local/etc/wsl/oobe.sh && 
+          chmod +x /mnt/sys-root/usr/local/etc/wsl/oobe.sh
       - name: Package final rootfs
         run: |
           tar -czf rootfs.tar.gz -C /mnt/sys-root ./ &&
