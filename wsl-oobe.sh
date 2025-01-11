@@ -20,11 +20,16 @@ while true; do
 
   # Create the user
   if /usr/sbin/useradd --uid "$DEFAULT_UID" -m "$username"; then
-
+    passwd "$username"
+    ret=$?
+    if [[ $ret -ne 0 ]]; then
+      /usr/sbin/userdel "$username"
+      continue
+    fi
     if /usr/sbin/usermod "$username" -aG "$DEFAULT_GROUPS"; then
       break
     else
-      /usr/sbin/deluser "$username"
+      /usr/sbin/userdel "$username"
     fi
   fi
 done
