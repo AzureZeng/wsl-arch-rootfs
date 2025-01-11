@@ -22,10 +22,17 @@ Download the latest [rootfs.tar.gz](https://github.com/AzureZeng/wsl-arch-rootfs
 
 Then import RootFS by using `wsl --import <Distro> <InstallLocation> <FileName>`.
 
+
 For example:
 
 ```powershell
 wsl --import Arch C:\Users\azurezeng\WSL\Arch rootfs.tar.gz
+```
+
+**\*New!** If WSL version 2.4.4 or higher version is installed, it is able to install and configure Arch Linux instantly by double-clicking `archlinux.wsl` or execute the following:
+
+```powershell
+wsl --install --from-file /path/to/archlinux.wsl
 ```
 
 You can use the RootFS with yuk7's [wsldl](https://github.com/yuk7/wsldl) together to get more convenient installation. The manual of [wsldl](https://github.com/yuk7/wsldl) can be found at [here](https://github.com/yuk7/wsldl/blob/main/README.md).
@@ -63,6 +70,10 @@ Summary:
 * Removed auto-generated `/etc/pacman.d/gnupg` for security reason (since 7/20/2024).
 
 * `/tmp` is mounted as `tmpfs` by adding this mount option to `/etc/fstab`. This behavior is same as default Arch Linux installation.
+
+* Masked Systemd services: `systemd-resolved.service`, `systemd-networkd.service`, `tmp.mount`.
+
+* Disabled the appending of Windows environment variables by default. This setting is done via `/etc/wsl.conf`.
 
 ## Some tips
 
