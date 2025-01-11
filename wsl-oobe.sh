@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ue
+#set -ue
 
 DEFAULT_GROUPS='adm,wheel,kvm,render,video'
 DEFAULT_UID='1000'
