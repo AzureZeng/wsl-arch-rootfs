@@ -48,7 +48,7 @@ jobs:
           mkdir -p /mnt/sys-root/usr/local/etc/wsl &&
           cp wsl.conf /mnt/sys-root/etc/wsl.conf &&
           cp wsl-distribution.conf /mnt/sys-root/etc/wsl-distribution.conf &&
-          cp arch.ico /mnt/sys-root/usr/local/etc/wsl/icon.ico &&
+          cp arch.ico /mnt/sys-root/usr/local/etc/wsl/arch.ico &&
           cp wsl-oobe.sh /mnt/sys-root/usr/local/etc/wsl/oobe.sh && 
           chmod +x /mnt/sys-root/usr/local/etc/wsl/oobe.sh
       - name: Package final rootfs
