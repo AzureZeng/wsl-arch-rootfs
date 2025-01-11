@@ -33,3 +33,8 @@ while true; do
     fi
   fi
 done
+
+echo 'Executing command "pacman-key --init"'
+pacman-key --init
+echo 'Executing command "pacman-key --populate"'
+pacman-key --populate
