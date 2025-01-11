@@ -23,13 +23,13 @@ while true; do
     passwd "$username"
     ret=$?
     if [[ $ret -ne 0 ]]; then
-      /usr/sbin/userdel "$username"
+      /usr/sbin/userdel -r "$username"
       continue
     fi
     if /usr/sbin/usermod "$username" -aG "$DEFAULT_GROUPS"; then
       break
     else
-      /usr/sbin/userdel "$username"
+      /usr/sbin/userdel -r "$username"
     fi
   fi
 done
