@@ -10,18 +10,17 @@ Please read this readme carefully before using this RootFS.
 
 1. **Please read this README thoroughly before using any RootFS archives provided by this repository.**
 
-2. Arch Linux on WSL installation is **UNSUPPORTED BY OFFICIAL** according to the [official code of conduct](https://terms.archlinux.org/docs/code-of-conduct/#arch-linux-distribution-support-only). Before reporting problems to Arch Linux official, please ensure that the problems are **REPRODUCIBLE** in **SUPPORTED** Arch Linux installations.
+2. Arch Linux on WSL installation is currently supported by official. Before you start, it is recommended to visit [official guide on Arch Linux Wiki](https://wiki.archlinux.org/title/Install_Arch_Linux_on_WSL).
 
-3. As mentioned above, you should be familiar with Arch Linux in **SUPPORTED** installations.
+3. Although supported officially, there might be some problems which is not reproducible in non-WSL Arch Linux installation. Therefore, you should be familiar with normal Arch Linux installations.
 
-4. The RootFS file provided in this repository is only intended to be installed in WSL2. WSL1 is not supported as Microsoft strongly advises using WSL2 now. If you are seeking Arch Linux on WSL1, [ArchWSL](https://github.com/yuk7/ArchWSL) provided by [yuk7](https://github.com/yuk7/) might help.
+4. The RootFS file provided in this repository is only intended to be installed in WSL2. WSL1 is not supported as Microsoft strongly advises using WSL2 now.
 
 ## Installation
 
 Download the latest [rootfs.tar.gz](https://github.com/AzureZeng/wsl-arch-rootfs/releases/latest) in the Repository Releases.
 
 Then import RootFS by using `wsl --import <Distro> <InstallLocation> <FileName>`.
-
 
 For example:
 
