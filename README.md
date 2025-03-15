@@ -16,39 +16,37 @@ Please read this readme carefully before using this RootFS.
 
 4. The RootFS file provided in this repository is only intended to be installed in WSL2. WSL1 is not supported as Microsoft strongly advises using WSL2 now.
 
+## Getting the RootFS
+
+Download the latest [archlinux.wsl](https://github.com/AzureZeng/wsl-arch-rootfs/releases/latest) in the Repository Releases.
+
 ## Installation
 
-Download the latest [rootfs.tar.gz](https://github.com/AzureZeng/wsl-arch-rootfs/releases/latest) in the Repository Releases.
+### WSL version 2.4.4 or higher
 
-Then import RootFS by using `wsl --import <Distro> <InstallLocation> <FileName>`.
-
-For example:
-
-```powershell
-wsl --import Arch C:\Users\azurezeng\WSL\Arch rootfs.tar.gz
-```
-
-**\*New!** If WSL version 2.4.4 or higher version is installed, it is able to install and configure Arch Linux instantly by double-clicking `archlinux.wsl` or execute the following:
+Double click `archlinux.wsl` or execute the following to install and configure Arch Linux WSL:
 
 ```powershell
 wsl --install --from-file /path/to/archlinux.wsl
 ```
 
-You can use the RootFS with yuk7's [wsldl](https://github.com/yuk7/wsldl) together to get more convenient installation. The manual of [wsldl](https://github.com/yuk7/wsldl) can be found at [here](https://github.com/yuk7/wsldl/blob/main/README.md).
+Then OOBE will start immediately if you start the distro. Just follow the instruction and start using!
 
-After importing, remember to do `pacman-key --init` and `pacman-key --populate` **immediately**, otherwise `pacman` may not work.
+### WSL version prior to 2.4.4
 
-Then, remember to do `pacman -Syu` to update all packages to the latest as soon as possible.
+Import RootFS by using `wsl --import <Distro> <InstallLocation> <FileName>`.
 
-### Hints
+For example:
 
-1. Rename the file name of wsldl to customize your distro's name.
+```powershell
+wsl --import Arch C:\Users\azurezeng\WSL\Arch archlinux.wsl
+```
 
-2. You can place `<distro-name>.exe` and `rootfs.tar.gz` in the same directory, then double-click `<distro-name>.exe` to complete distro import.
+Then execute OOBE script immediately:
 
-UPDATE: `rootfs-with-wsldl.zip` contains both `rootfs.tar.gz` and `wsldl.exe` (renamed to `Arch.exe`). I would like to express sincere thanks to yuk7!
-
-![](https://github.com/AzureZeng/wsl-arch-rootfs/assets/19504193/9245d019-a7bd-40d2-b267-0855121ae53b)
+```bash
+$ /usr/lib/wsl/oobe.sh
+```
 
 ## Contents in this RootFS
 
@@ -70,7 +68,7 @@ Summary:
 
 * `/tmp` is mounted as `tmpfs` by adding this mount option to `/etc/fstab`. This behavior is same as default Arch Linux installation.
 
-* Masked Systemd services: `systemd-resolved.service`, `systemd-networkd.service`, `tmp.mount`.
+* Masked Systemd services: `systemd-binfmt.service`, `systemd-resolved.service`, `systemd-networkd.service`, `tmp.mount`.
 
 * Disabled the appending of Windows environment variables by default. This setting is done via `/etc/wsl.conf`.
 

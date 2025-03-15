@@ -36,8 +36,7 @@ jobs:
           sed -i -e 's/^#en_US.UTF-8/en_US.UTF-8/g' /mnt/sys-root/etc/locale.gen &&
           echo "%wheel ALL=(ALL:ALL) ALL" > /mnt/sys-root/etc/sudoers.d/wheel &&
           echo "tmpfs /tmp tmpfs mode=1777,strictatime,nosuid,nodev,size=50%,nr_inodes=1m 0 0" >> /mnt/sys-root/etc/fstab &&
-          arch-chroot /mnt/sys-root locale-gen &&
-          arch-chroot /mnt/sys-root /usr/sbin/systemctl mask systemd-resolved.service systemd-networkd.service tmp.mount &&
+          arch-chroot /mnt/sys-root /usr/sbin/systemctl mask systemd-binfmt.service systemd-resolved.service systemd-networkd.service tmp.mount &&
           rm -rf /mnt/sys-root/etc/pacman.d/gnupg &&
           rm -rf /mnt/sys-root/var/lib/pacman/sync/ &&
           rm /mnt/sys-root/etc/machine-id &&
@@ -45,34 +44,24 @@ jobs:
           rm -rf /mnt/sys-root/var/cache/pacman/pkg/*
       - name: Configure WSL installation profile
         run: |
-          mkdir -p /mnt/sys-root/usr/local/etc/wsl &&
+          mkdir -p /mnt/sys-root/usr/lib/wsl &&
+          cp arch.ico /mnt/sys-root/usr/lib/wsl/arch.ico &&
+          cp wsl-oobe.sh /mnt/sys-root/usr/lib/wsl/oobe.sh &&
+          chmod +x /mnt/sys-root/usr/lib/wsl/oobe.sh &&
           cp wsl.conf /mnt/sys-root/etc/wsl.conf &&
-          cp wsl-distribution.conf /mnt/sys-root/etc/wsl-distribution.conf &&
-          cp arch.ico /mnt/sys-root/usr/local/etc/wsl/arch.ico &&
-          cp wsl-oobe.sh /mnt/sys-root/usr/local/etc/wsl/oobe.sh && 
-          chmod +x /mnt/sys-root/usr/local/etc/wsl/oobe.sh
+          cp wsl-distribution.conf /mnt/sys-root/etc/wsl-distribution.conf
       - name: Package final rootfs
         run: |
-          tar -czf rootfs.tar.gz -C /mnt/sys-root ./ &&
-          cp rootfs.tar.gz archlinux.wsl
-      - name: Package with wsldl
-        run: |
-          mkdir wsl-arch-rootfs &&
-          wget -O wsldl_icons.zip https://github.com/yuk7/wsldl/releases/latest/download/icons.zip &&
-          unzip -o wsldl_icons.zip Arch.exe -d wsl-arch-rootfs/ &&
-          cp rootfs.tar.gz wsl-arch-rootfs/rootfs.tar.gz &&
-          zip rootfs-with-wsldl.zip -r wsl-arch-rootfs/
+          tar -czf archlinux.wsl -C /mnt/sys-root ./ &&
       - name: Generate sha256sums
         run: |
-          sha256sum archlinux.wsl rootfs.tar.gz rootfs-with-wsldl.zip > sha256sums
+          sha256sum archlinux.wsl > sha256sums
       - name: Upload the final artifact
         uses: softprops/action-gh-release@v0.1.15
         with:
           tag_name: "${{ env.IMAGE_VERSION }}"
           files: |
             archlinux.wsl
-            rootfs.tar.gz
-            rootfs-with-wsldl.zip
             sha256sums
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
