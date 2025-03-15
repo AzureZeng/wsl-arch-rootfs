@@ -6,7 +6,7 @@ DEFAULT_GROUPS='adm,wheel,kvm,render,video'
 DEFAULT_UID='1000'
 
 echo 'Welcome to Arch Linux on WSL.'
-echo 'This image is built by Azure Zeng. Please read README \e[0;31mcarefully\e[0m.'
+printf 'This image is built by Azure Zeng. Please read README \e[0;31mcarefully\e[0m.\n'
 echo ''
 echo 'Please create a default UNIX user account. The username does not need to match your Windows username.'
 echo 'For more information visit: https://aka.ms/wslusers'
@@ -37,11 +37,13 @@ while true; do
   fi
 done
 
-echo '\e[0;36m[*]\e[0m Generating locales.'
+echo ''
+
+printf '\e[0;36m[*]\e[0m Generating locales.\n'
 /usr/bin/locale-gen
-echo '\e[0;36m[*]\e[0m Executing command "pacman-key --init"'
+printf '\e[0;36m[*]\e[0m Executing command "pacman-key --init"\n'
 pacman-key --init
-echo '\e[0;36m[*]\e[0m Executing command "pacman-key --populate"'
+printf '\e[0;36m[*]\e[0m Executing command "pacman-key --populate"\n'
 pacman-key --populate
 
-echo '\e[0;92mDone! This Arch Linux on WSL installation is ready to use.\e[0m'
+printf '\e[0;92mDone! This Arch Linux on WSL installation is ready to use.\e[0m\n'
