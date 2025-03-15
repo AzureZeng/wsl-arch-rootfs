@@ -52,7 +52,7 @@ jobs:
           cp wsl-distribution.conf /mnt/sys-root/etc/wsl-distribution.conf
       - name: Package final rootfs
         run: |
-          tar -czf archlinux.wsl -C /mnt/sys-root ./ &&
+          tar -czf archlinux.wsl -C /mnt/sys-root ./
       - name: Generate sha256sums
         run: |
           sha256sum archlinux.wsl > sha256sums
