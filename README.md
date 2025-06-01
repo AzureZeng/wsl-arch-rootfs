@@ -106,9 +106,9 @@ default=USERNAME_IN_WSL
 
 7. Error `error: restricting filesystem access failed because landlock is not supported by the kernel!` when using `pacman`
 
-   Some security features are introduced in `pacman` v7.x, requiring a newer kernel version. However, Microsoft still sticks using Linux kernel v5.15.x.
+   Some security features are introduced in `pacman` v7.x, requiring a newer kernel version.
 
-   You can compile a newer kernel version and change WSL setting to use custom kernel, or just enable `DisableSandbox` setting in `/etc/pacman.conf`.
+   Update WSL to version 2.5.7 or later to use newer kernel version, or just enable `DisableSandbox` setting in `/etc/pacman.conf`.
 
 ```
 #UseSyslog
